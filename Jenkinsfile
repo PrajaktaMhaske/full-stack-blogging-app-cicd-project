@@ -40,7 +40,7 @@ pipeline {
         stage('Publish Artifacts') {
             steps {
                 withMaven(globalMavenSettingsConfig: 'maven-settings', jdk: 'jdk', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
-                        sh "mvn deploy"
+                    sh "mvn deploy"
                 }
             }
         }
