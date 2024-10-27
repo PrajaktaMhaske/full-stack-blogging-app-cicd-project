@@ -116,7 +116,7 @@ post {
             emailext(
                 subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus}",
                 body: body,
-                to: 'pvmhaske2000@gmail.com',
+                to: 'prajaktamhaske3010@gmail.com',
                 from: 'jenkins@example.com',
                 replyTo: 'jenkins@example.com',
                 mimeType: 'text/html'
