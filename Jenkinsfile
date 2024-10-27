@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script{
                 withDockerRegistry(credentialsId: 'dockerhub-creds', toolName: 'docker') {
-                    sh "docker build -t prajaktamhaske/cicd-project:latest ."
+                    sh "sudo docker build -t prajaktamhaske/cicd-project:latest ."
                 }
                 }
             }
@@ -62,7 +62,7 @@ pipeline {
             steps {
                 script{
                 withDockerRegistry(credentialsId: 'dockerhub-creds', toolName: 'docker') {
-                    sh "docker push prajaktamhaske/cicd-project:latest"
+                    sh "sudo docker push prajaktamhaske/cicd-project:latest"
                 }
                 }
             }
