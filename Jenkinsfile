@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        jdk "jdk17"
-        maven "maven3"
+        jdk "jdk"
+        maven "maven"
     }
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Publish Artifacts') {
             steps {
-                withMaven(globalMavenSettingsConfig: 'maven-settings', jdk: 'jdk17', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
+                withMaven(globalMavenSettingsConfig: 'maven-settings', jdk: 'jdk', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
                     sh "mvn deploy"
                 }
             }
