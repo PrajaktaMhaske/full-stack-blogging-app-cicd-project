@@ -47,22 +47,22 @@ pipeline {
         stage('Docker Build & Tag') {
             steps {
                 script{
-                withDockerRegistry(credentialsId: 'dockerhub-cred', url: 'https://index.docker.io/v1/') {
-                sh "docker build -t ugogabriel/gab-blogging-app ."
+                withDockerRegistry(credentialsId: 'dockerhub-creds', toolName: 'docker') {
+                    sh "docker build -t prajaktamhaske/cicd-project:latest ."
                 }
                 }
             }
         }
         stage('Trivy Image Scan') {
             steps {
-                sh "trivy image --format table -o image.html ugogabriel/gab-blogging-app:latest"
+                sh "trivy image --format table -o image.html prajaktamhaske/cicd-project:latest"
             }
         }
         stage('Docker Push Image') {
             steps {
                 script{
-                withDockerRegistry(credentialsId: 'dockerhub-cred', url: 'https://index.docker.io/v1/') {
-                    sh "docker push ugogabriel/gab-blogging-app"
+                withDockerRegistry(credentialsId: 'dockerhub-creds', toolName: 'docker') {
+                    sh "docker push prajaktamhaske/cicd-project:latest"
                 }
                 }
             }
