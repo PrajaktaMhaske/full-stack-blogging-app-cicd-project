@@ -32,6 +32,13 @@ pipeline {
                 }
             }
         }
+        stage('Quality Gate Check') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
         stage('Build') {
             steps {
                 sh "mvn package"
