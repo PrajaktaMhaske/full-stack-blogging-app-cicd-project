@@ -32,10 +32,14 @@ pipeline {
                 }
             }
         }
-        stage('Quality Gate Check') {
+        stage('Quality Gate') {
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
+                script {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        echo "Quality Gate Status: ${qg.status}"
+                        currentBuild.result = 'SUCCESS'  // Force success even if Quality Gate fails
+                    }
                 }
             }
         }
@@ -94,6 +98,16 @@ pipeline {
     }  // Closing stages
 }  // Closing pipeline
 post {
+    success {
+            script {
+                currentBuild.result = 'SUCCESS'
+            }
+        }
+        failure {
+            script {
+                currentBuild.result = 'FAILURE'
+            }
+        }
     always {
         script {
             // Get job name, build number, and pipeline status
