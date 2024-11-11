@@ -32,17 +32,6 @@ pipeline {
                 }
             }
         }
-        stage('Quality Gate') {
-            steps {
-                script {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        echo "Quality Gate Status: ${qg.status}"
-                        currentBuild.result = 'SUCCESS'  // Force success even if Quality Gate fails
-                    }
-                }
-            }
-        }
         stage('Build') {
             steps {
                 sh "mvn package"
@@ -98,16 +87,6 @@ pipeline {
     }  // Closing stages
 }  // Closing pipeline
 post {
-    success {
-            script {
-                currentBuild.result = 'SUCCESS'
-            }
-        }
-        failure {
-            script {
-                currentBuild.result = 'FAILURE'
-            }
-        }
     always {
         script {
             // Get job name, build number, and pipeline status
