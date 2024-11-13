@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/PrajaktaMhaske/full-stack-blogging-app-cicd-project.git'
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/PrajaktaMhaske/full-stack-blogging-app-cicd-project.git'
             }
         }
         stage('Compile') {
